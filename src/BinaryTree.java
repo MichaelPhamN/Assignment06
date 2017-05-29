@@ -1,5 +1,7 @@
 import java.util.Arrays;
 
+//import BinaryTree.Node;
+
 /**
  * A binary search tree for Comparable objects such as Strings, Integers, etc.
  * For each node n, all nodes to the left have data which is less than n.data
@@ -133,11 +135,52 @@ public class BinaryTree<T extends Comparable<T>> {
 			}
 		}
 		
-		public Node<T> researchsBoth(T a, T b){
-			return null;
+		public boolean searchNode(T d){
+			if(data == null)
+				return false;
+			int comp = d.compareTo(data);
+			if(comp == 0){
+				return true;
+			}
+			
+			if(comp < 0){
+				if(left != null)
+					return left.searchNode(d);
+			}else{
+				if(right != null)
+					return right.searchNode(d);
+			}			
+			return false;
 		}
 		
-		
+		public Node<T> reachesBoth(T a, T b){
+			if(data == null)
+				return null;
+						
+			int comp1 = a.compareTo(data);
+			int comp2 = b.compareTo(data);	
+			Node<T> t1 = new Node<T>();
+			if(comp1 == 0 || comp2 == 0){
+				t1.data = data;
+				return t1;
+			}			
+			
+			if(left != null){
+				left = left.reachesBoth(a, b);
+			}			
+			
+				
+			if(right != null){
+				right = right.reachesBoth(a, b);
+			}
+			
+			Node<T> t2 = new Node<T>();
+			if (left!=null && right!=null){
+				t2.data = data;
+				return t2;	
+			}			
+			return (left != null) ? left : right;			
+		}
 		
 		public Node<T> findRightmostLowest() {
 			//find All Node in depth
@@ -218,16 +261,25 @@ public class BinaryTree<T extends Comparable<T>> {
 	 * @param b
 	 * @return data value
 	 */
-	public Node<T> reachesBoth(T a, T b) {
-		// Tree is empty
+	public T reachesBoth(T a, T b) {
+		if(root.searchNode(a) == false || root.searchNode(b) == false)
+			return null;
+			
 		if(root == null)
 			return null;
 		
-		// Root is parent of the Other Child Nodes
-		if(root.data == a || root.data == b)
-			return root;
-		
-		return root.researchsBoth(a,b);
+		return root.reachesBoth(a, b).data;
+	}
+	
+	/**
+	 * Search a Node existed in a tree	
+	 * @param d
+	 * @return true, false
+	 */
+	public boolean searchNode(T d){
+		if(root == null)
+			return false;
+		return root.searchNode(d);
 	}
 
 	/**
@@ -272,6 +324,21 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 	
 	public static void main(String[] args){
+		String[] ex1 = { "M", "G", "N", "D", "H", "B", "F" };
+		BinaryTree<String> tree = new BinaryTree<>();
+		for (String name : ex1) {
+			tree.add(name);
+		}
+		tree.print();
+		System.out.println(tree.reachesBoth("B", "H"));
+		tree.print();		
+//		
+//		tree.print();		
+//		
+//		tree.print();		
+//		
+//		tree.print();		
+		
 		
 	}
 }

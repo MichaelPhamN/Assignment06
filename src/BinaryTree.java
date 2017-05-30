@@ -13,7 +13,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	private static class Node<T extends Comparable<T>> {
 		public T data;
 		public Node<T> left, right;
-
+		public static int count = 0;
 		public void add(T d) {
 			int comp = d.compareTo(data);
 			if (comp == 0)
@@ -135,6 +135,15 @@ public class BinaryTree<T extends Comparable<T>> {
 			}
 		}
 		
+		public int depth() {			
+			int leftDepth = 0;
+			if (left != null) leftDepth = left.depth();
+			int rightDepth = 0;
+			if (right != null) rightDepth = right.depth();
+			return 1 + Math.max(leftDepth, rightDepth);
+		}
+		
+		
 		public boolean searchNode(T d){
 			if(data == null)
 				return false;
@@ -176,10 +185,25 @@ public class BinaryTree<T extends Comparable<T>> {
 			return (left_data != null) ? left_data : right_data;			
 		}
 		
-		public Node<T> findRightmostLowest() {
-			//find All Node in depth
-			int countLeft = 0;
-			
+		public T findRightmostLowest(int height, int depth){
+			if(left == null && right == null){
+				if(depth == height){
+					return data;
+				}
+				return null;
+			}
+			T right_data = null;						
+			if(right != null)				
+				right_data = right.findRightmostLowest(height, depth+1);			
+				
+			if(left!=null)
+				if(right_data == null){
+					right_data = left.findRightmostLowest(height, depth+1);
+				}		
+			return right_data;
+		}		
+		
+		public T findKthLargest(int k) {
 			return null;
 		}
 	}
@@ -245,6 +269,11 @@ public class BinaryTree<T extends Comparable<T>> {
 	public void delete(T data) {
 		root = root.delete(data);
 	}
+	
+	public int depth() {
+		if (root == null) return 0;
+		return root.depth();
+	}
 
 	/**
 	 * Returns the data value of the node that can reach both a and b in the
@@ -283,13 +312,13 @@ public class BinaryTree<T extends Comparable<T>> {
 	 * @return data value of said node
 	 */
 	public T findRightmostLowest() {
+		int height = root.depth();
+		
 		if(root == null){
 			return null;
 		}
 		
-		
-		// TODO: Implement.
-		return null;
+		return root.findRightmostLowest(height - 1, 0);
 	}
 
 	/**
@@ -302,8 +331,10 @@ public class BinaryTree<T extends Comparable<T>> {
 	 * @return element, or null if k is out of range.
 	 */
 	public T findKthLargest(int k) {
-		// TODO: Implement.
-		return null;
+		if(k > root.depth() || k < 0)
+			return null;
+		
+		return root.findKthLargest(k);
 	}
 
 	/**
@@ -324,7 +355,7 @@ public class BinaryTree<T extends Comparable<T>> {
 			tree.add(name);
 		}
 //		tree.print();
-		System.out.println(tree.reachesBoth("N", "N"));
+		System.out.println(tree.findRightmostLowest());
 //		tree.print();		
 //		
 //		tree.print();		

@@ -204,7 +204,17 @@ public class BinaryTree<T extends Comparable<T>> {
 		}		
 		
 		public T findKthLargest(int k) {
-			return null;
+			if(left == null && right == null){
+				if(count >= k)
+					return null;
+			}
+			T data = null;
+			if(left != null)
+				data = left.findKthLargest(k);
+			else{
+				data = right.findKthLargest(k);
+			}
+			return data;
 		}
 	}
 
@@ -355,7 +365,7 @@ public class BinaryTree<T extends Comparable<T>> {
 			tree.add(name);
 		}
 //		tree.print();
-		System.out.println(tree.findRightmostLowest());
+		System.out.println(tree.findKthLargest(1));
 //		tree.print();		
 //		
 //		tree.print();		

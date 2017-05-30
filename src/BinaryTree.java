@@ -119,7 +119,7 @@ public class BinaryTree<T extends Comparable<T>> {
 		 * @return A valid BinaryTree that doesn't have d in it but does have
 		 *         everything else.
 		 */
-		public Node<T> delete(T d) {
+		public Node<T> delete(T d) {			
 			int comp = d.compareTo(data);
 			if (comp == 0)
 				return deleteNode();
@@ -153,33 +153,27 @@ public class BinaryTree<T extends Comparable<T>> {
 			return false;
 		}
 		
-		public Node<T> reachesBoth(T a, T b){
-			if(data == null)
-				return null;
-						
+		public T reachesBoth(T a, T b){						
 			int comp1 = a.compareTo(data);
 			int comp2 = b.compareTo(data);	
-			Node<T> t1 = new Node<T>();
-			if(comp1 == 0 || comp2 == 0){
-				t1.data = data;
-				return t1;
-			}			
 			
+			if(comp1 == 0 || comp2 == 0)
+				return data;
+			
+			T left_data = null;
 			if(left != null){
-				left = left.reachesBoth(a, b);
-			}			
-			
-				
-			if(right != null){
-				right = right.reachesBoth(a, b);
+				left_data = left.reachesBoth(a, b);
 			}
 			
-			Node<T> t2 = new Node<T>();
-			if (left!=null && right!=null){
-				t2.data = data;
-				return t2;	
+			T right_data = null;
+			if(right != null){
+				right_data = right.reachesBoth(a, b);
 			}			
-			return (left != null) ? left : right;			
+			
+			if (left_data!=null && right_data!=null){
+				return data;	
+			}			
+			return (left_data != null) ? left_data : right_data;			
 		}
 		
 		public Node<T> findRightmostLowest() {
@@ -262,13 +256,13 @@ public class BinaryTree<T extends Comparable<T>> {
 	 * @return data value
 	 */
 	public T reachesBoth(T a, T b) {
-		if(root.searchNode(a) == false || root.searchNode(b) == false)
-			return null;
-			
 		if(root == null)
 			return null;
 		
-		return root.reachesBoth(a, b).data;
+		if(root.searchNode(a) == false || root.searchNode(b) == false)
+			return null;
+		
+		return root.reachesBoth(a, b);
 	}
 	
 	/**
@@ -329,9 +323,9 @@ public class BinaryTree<T extends Comparable<T>> {
 		for (String name : ex1) {
 			tree.add(name);
 		}
-		tree.print();
-		System.out.println(tree.reachesBoth("B", "H"));
-		tree.print();		
+//		tree.print();
+		System.out.println(tree.reachesBoth("N", "N"));
+//		tree.print();		
 //		
 //		tree.print();		
 //		

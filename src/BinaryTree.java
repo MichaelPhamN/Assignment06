@@ -12,8 +12,7 @@ import java.util.Arrays;
 public class BinaryTree<T extends Comparable<T>> {
 	private static class Node<T extends Comparable<T>> {
 		public T data;
-		public Node<T> left, right;
-		public static int count = 0;
+		public Node<T> left, right;		
 		public void add(T d) {
 			int comp = d.compareTo(data);
 			if (comp == 0)
@@ -231,8 +230,7 @@ public class BinaryTree<T extends Comparable<T>> {
 		}
 	}
 
-	private Node<T> root;
-
+	private Node<T> root;	
 	public BinaryTree() {
 		root = null;
 	}

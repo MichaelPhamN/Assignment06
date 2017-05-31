@@ -203,18 +203,31 @@ public class BinaryTree<T extends Comparable<T>> {
 			return right_data;
 		}		
 		
-		public T findKthLargest(int k) {
-			if(left == null && right == null){
-				if(count >= k)
-					return null;
+		public T findKthLargest(int k, int size) {			
+			T right_data = null;						
+			if(right != null){				
+				right_data = right.findKthLargest(k, size);
+				size = size - 1;
 			}
-			T data = null;
-			if(left != null)
-				data = left.findKthLargest(k);
-			else{
-				data = right.findKthLargest(k);
+			System.out.println(size);
+			System.out.println(data);
+			if(left == null && right == null){				
+				if(size == k){
+					return data;
+				}
+				return null;
 			}
-			return data;
+				
+			if(left!=null){
+				if(size == k){
+					return data;
+				}
+				if(right_data == null){
+					size = size - 1;
+					right_data = left.findKthLargest(k, size);
+				}
+			}		
+			return right_data;
 		}
 	}
 
@@ -341,10 +354,13 @@ public class BinaryTree<T extends Comparable<T>> {
 	 * @return element, or null if k is out of range.
 	 */
 	public T findKthLargest(int k) {
-		if(k > root.depth() || k < 0)
+		int size = root.size();		
+		if(k > root.size() || k < 0)
+			return null;
+		if(root == null)
 			return null;
 		
-		return root.findKthLargest(k);
+		return root.findKthLargest(k,size - 1);
 	}
 
 	/**
@@ -359,13 +375,21 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 	
 	public static void main(String[] args){
-		String[] ex1 = { "M", "G", "N", "D", "H", "B", "F" };
+		String[] ex1 = { "M", "G", "N", "D", "H", "B", "F", "P", "O" };
 		BinaryTree<String> tree = new BinaryTree<>();
 		for (String name : ex1) {
 			tree.add(name);
 		}
 //		tree.print();
-		System.out.println(tree.findKthLargest(1));
+		System.out.println(tree.findKthLargest(0));
+//		System.out.println(tree.findKthLargest(1));
+//		System.out.println(tree.findKthLargest(2));
+//		System.out.println(tree.findKthLargest(3));
+//		System.out.println(tree.findKthLargest(4));
+//		System.out.println(tree.findKthLargest(5));
+//		System.out.println(tree.findKthLargest(6));
+//		System.out.println(tree.findKthLargest(7));
+//		System.out.println(tree.findKthLargest(8));
 //		tree.print();		
 //		
 //		tree.print();		

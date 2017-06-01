@@ -13,6 +13,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	private static class Node<T extends Comparable<T>> {
 		public T data;
 		public Node<T> left, right;		
+		public static int count = 0;
 		public void add(T d) {
 			int comp = d.compareTo(data);
 			if (comp == 0)
@@ -202,30 +203,24 @@ public class BinaryTree<T extends Comparable<T>> {
 			return right_data;
 		}		
 		
-		public T findKthLargest(int k, int size) {			
-			T right_data = null;						
+		public T findKthLargest(int k, int size){
+			T right_data = null;
 			if(right != null){				
-				right_data = right.findKthLargest(k, size);
-				size = size - 1;
+				right_data = right.findKthLargest(k, size);				
+			}			
+
+			if(right_data == null)
+				count = count + 1;
+			if((size - count) == k){				
+				count = 0;
+				return data;
 			}
-			System.out.println(size);
-			System.out.println(data);
-			if(left == null && right == null){				
-				if(size == k){
-					return data;
-				}
-				return null;
-			}
-				
-			if(left!=null){
-				if(size == k){
-					return data;
-				}
+			
+			if(left != null){	
 				if(right_data == null){
-					size = size - 1;
-					right_data = left.findKthLargest(k, size);
+					right_data = left.findKthLargest(k, size);					
 				}
-			}		
+			}			
 			return right_data;
 		}
 	}
@@ -351,14 +346,13 @@ public class BinaryTree<T extends Comparable<T>> {
 	 *            index
 	 * @return element, or null if k is out of range.
 	 */
-	public T findKthLargest(int k) {
-		int size = root.size();		
-		if(k > root.size() || k < 0)
+	public T findKthLargest(int k) {	
+		int size = root.size();
+		if(k >= root.size() || k < 0)
 			return null;
 		if(root == null)
-			return null;
-		
-		return root.findKthLargest(k,size - 1);
+			return null;		
+		return root.findKthLargest(k,size);
 	}
 
 	/**
@@ -370,32 +364,5 @@ public class BinaryTree<T extends Comparable<T>> {
 	 */
 	public void balance() {
 		// TODO: Implement for extra credit.
-	}
-	
-	public static void main(String[] args){
-		String[] ex1 = { "M", "G", "N", "D", "H", "B", "F", "P", "O" };
-		BinaryTree<String> tree = new BinaryTree<>();
-		for (String name : ex1) {
-			tree.add(name);
-		}
-//		tree.print();
-		System.out.println(tree.findKthLargest(0));
-//		System.out.println(tree.findKthLargest(1));
-//		System.out.println(tree.findKthLargest(2));
-//		System.out.println(tree.findKthLargest(3));
-//		System.out.println(tree.findKthLargest(4));
-//		System.out.println(tree.findKthLargest(5));
-//		System.out.println(tree.findKthLargest(6));
-//		System.out.println(tree.findKthLargest(7));
-//		System.out.println(tree.findKthLargest(8));
-//		tree.print();		
-//		
-//		tree.print();		
-//		
-//		tree.print();		
-//		
-//		tree.print();		
-		
-		
 	}
 }

@@ -59,17 +59,11 @@ public class BinaryTreeTest {
 			BinaryTree<String> emptyTree = new BinaryTree<>();
 			BinaryTree<String> simpleTree = new BinaryTree<>();
 			simpleTree.add("Hello");
-			letterTree.print();
 			reachesBothScore += reachScore(letterTree, "letterTree", "B", "H", "G", 2);
-			letterTree.print();
 			reachesBothScore += reachScore(letterTree, "letterTree", "F", "N", "M", 2);
-			letterTree.print();
 			reachesBothScore += reachScore(letterTree, "letterTree", "B", "D", "D", 2);
-			letterTree.print();
 			reachesBothScore += reachScore(letterTree, "letterTree", "X", "M", null, 2);
-			letterTree.print();
 			reachesBothScore += reachScore(letterTree, "letterTree", "N", "N", "N", 2);
-			letterTree.print();
 			reachesBothScore += reachScore(emptyTree, "emptyTree", "a", "b", null, 2);
 			findRightmostLowestScore += rightmostLowestScore(letterTree, "letterTree", "F", 2);
 			findRightmostLowestScore += rightmostLowestScore(simpleTree, "simpleTree", "Hello", 2);
@@ -97,7 +91,7 @@ public class BinaryTreeTest {
 				}
 			}
 			// If you have trouble, you may want to take a look at the tree!
-			// intTree.print();
+			 
 			reachesBothScore += reachScore(intTree, "intTree", 460883892, 356823491, 416241605, 2);
 			reachesBothScore += reachScore(intTree, "intTree", -2102232259, -2110917076, -2109698874, 2);
 			reachesBothScore += reachScore(intTree, "intTree", 2146874548, -2140626133, 1, 2);
@@ -107,6 +101,7 @@ public class BinaryTreeTest {
 			reachesBothScore += reachScore(intTree, "intTree", 1816105509, 1116173557, 1144664412, 2);
 			reachesBothScore += reachScore(intTree, "intTree", 3, 4, null, 2);
 			findRightmostLowestScore += rightmostLowestScore(intTree, "intTree", -96593785, 2);
+			intTree.print();
 			findKthLargestScore += kthLargestScore(intTree, "intTree", 700, 851071045, 2);
 			findKthLargestScore += kthLargestScore(intTree, "intTree", 600, 434829441, 2);
 			findKthLargestScore += kthLargestScore(intTree, "intTree", 500, 18587837, 2);

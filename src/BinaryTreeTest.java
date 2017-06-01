@@ -91,7 +91,7 @@ public class BinaryTreeTest {
 				}
 			}
 			// If you have trouble, you may want to take a look at the tree!
-			 
+			// intTree.print();
 			reachesBothScore += reachScore(intTree, "intTree", 460883892, 356823491, 416241605, 2);
 			reachesBothScore += reachScore(intTree, "intTree", -2102232259, -2110917076, -2109698874, 2);
 			reachesBothScore += reachScore(intTree, "intTree", 2146874548, -2140626133, 1, 2);
@@ -101,7 +101,6 @@ public class BinaryTreeTest {
 			reachesBothScore += reachScore(intTree, "intTree", 1816105509, 1116173557, 1144664412, 2);
 			reachesBothScore += reachScore(intTree, "intTree", 3, 4, null, 2);
 			findRightmostLowestScore += rightmostLowestScore(intTree, "intTree", -96593785, 2);
-			intTree.print();
 			findKthLargestScore += kthLargestScore(intTree, "intTree", 700, 851071045, 2);
 			findKthLargestScore += kthLargestScore(intTree, "intTree", 600, 434829441, 2);
 			findKthLargestScore += kthLargestScore(intTree, "intTree", 500, 18587837, 2);
